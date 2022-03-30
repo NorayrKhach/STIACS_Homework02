@@ -7,30 +7,32 @@ const citiesService = rewire("./cities.service");
 chai.use(chaiAsPromised);
 chai.should();
 
-const res = {
+const fakeData = {
     data: {
-        country: "United States",
         places: [{ "place name": "Westport", "state abbreviation": "NY" }],
+        country: "United States",
     },
 };
 
-const citiesRepositoryFaker = () => ({
+const faker = () => ({
     getCityDataByZipCode: (zip) => {
-        if (zip === "12993") return res;
-        else throw new NotFoundError("Wrong ZIP, no city found");
+        if (zip === "1") {
+            throw new NotFoundError("Wrong ZIP, no city found");
+        }
+            return fakeData;
     },
 });
 
-citiesService.__set__("citiesRepository", citiesRepositoryFaker());
+citiesService.__set__("citiesRepository", faker());
 
-describe("Cities Service", () => {
-    it("should provide expected output for getCityByZipCode function", () => {
+describe("Unit tests for cities.service.spec.js", () => {
+    it("Tests if getCityByZipCode function works correctly", () => {
         return citiesService
-            .getCityByZipCode("12993")
+            .getCityByZipCode()
             .should.eventually.equal("Westport, NY, United States");
     });
 
-    it("should throw a NotFoundError in case of a wrong zip code", () => {
+    it("In the case of wrong ZipCode throw error", () => {
         return citiesService
             .getCityByZipCode("1")
             .should.eventually.be.rejectedWith(NotFoundError);

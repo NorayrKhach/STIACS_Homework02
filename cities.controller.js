@@ -6,10 +6,10 @@ const app = express.Router();
 
 app.get("/:zipCode",
     asyncHandler(async (req, res) => {
-        const { zipCode: zip } = req.params;
-        const data = await citiesService.getCityByZipCode(zip);
-        res.send(data)
+        const zip = req.params.zipCode
+        const city = await citiesService.getCityByZipCode(zip);
+        res.send(city)
     })
     )
 
-module.exports = app 
+module.exports = app
