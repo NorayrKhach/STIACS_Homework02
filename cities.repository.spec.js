@@ -4,7 +4,7 @@ const sinon = require("sinon");
 const citiesRepository = require("./cities.repository");
 
 describe("Cities Repository", () => {
-    it("should return the expected result for getCityDataByZipCode function", async () => {
+    it("should provide expected output for getCityDataByZipCode function", async () => {
         const expectedResult = {
             country: "United States",
             places: [{ "place name": "Westport", "state abbreviation": "NY" }],

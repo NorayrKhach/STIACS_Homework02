@@ -24,7 +24,7 @@ const citiesRepositoryFaker = () => ({
 citiesService.__set__("citiesRepository", citiesRepositoryFaker());
 
 describe("Cities Service", () => {
-    it("should return the expected result for getCityByZipCode function", () => {
+    it("should provide expected output for getCityByZipCode function", () => {
         return citiesService
             .getCityByZipCode("12993")
             .should.eventually.equal("Westport, NY, United States");
